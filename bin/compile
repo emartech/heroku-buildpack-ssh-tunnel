@@ -2,4 +2,4 @@
 
 echo "Adding ssh-tunnel script"
 
-cp -a ssh-tunnel.sh $1/.profile.d/
+cp -a bin/ssh-tunnel.sh $1/.profile.d/
