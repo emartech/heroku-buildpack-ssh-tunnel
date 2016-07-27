@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+echo "ssh-tunnel"
+exit 0
