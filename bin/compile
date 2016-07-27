@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+BUILDDIR=$1
+
 echo "Adding ssh-tunnel script"
 
-cp -a bin/ssh-tunnel.sh $1/.profile.d/
+[ ! -d $BUILDDIR/.profile.d ] && mkdir $BUILDDIR/.profile.d
+cp -a bin/ssh-tunnel.sh $BUILDDIR/.profile.d/
