@@ -2,5 +2,4 @@
 
 echo "Adding ssh-tunnel script"
 
-mkdir $1/.profile.d/
 cp -a ssh-tunnel.sh $1/.profile.d/
