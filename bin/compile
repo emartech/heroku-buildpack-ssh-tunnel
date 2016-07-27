@@ -2,7 +2,7 @@
 
 echo "-----> Adding ssh-tunnel script"
 
-ROOT_DIR=$(realpath $(dirname $)/../)
+ROOT_DIR=$(dirname $0)/../
 BUILD_DIR=$1
 
 [ ! -d $BUILD_DIR/.profile.d ] && mkdir $BUILD_DIR/.profile.d
