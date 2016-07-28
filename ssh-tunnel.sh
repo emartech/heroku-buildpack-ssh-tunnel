@@ -1,5 +1,7 @@
 #!/bin/bash
 
+[ -v SSHTUNNEL_REMOTE_PORT ] || SSHTUNNEL_REMOTE_PORT=22
+
 function log {
   echo "ssh-tunnel	event=$1"
 }
@@ -20,13 +22,13 @@ function deploy_key {
   echo "${SSHTUNNEL_PRIVATE_KEY}" > ${HOME}/.ssh/ssh-tunnel-key
   chmod 600 ${HOME}/.ssh/ssh-tunnel-key
 
-  ssh-keyscan ${SSHTUNNEL_REMOTE_HOST} > ${HOME}/.ssh/known_hosts
+  ssh-keyscan -p ${SSHTUNNEL_REMOTE_PORT} ${SSHTUNNEL_REMOTE_HOST} > ${HOME}/.ssh/known_hosts
 }
 
 function spawn_tunnel {
   while true; do
     log "ssh-connection-init"
-    ssh -i ${HOME}/.ssh/ssh-tunnel-key -N -o "ServerAliveInterval 10" -o "ServerAliveCountMax 3" -o "ConnectTimeout 10" -L ${SSHTUNNEL_TUNNEL_CONFIG} ${SSHTUNNEL_REMOTE_USER}@${SSHTUNNEL_REMOTE_HOST} -p ${SSHTUNNEL_REMOTE_PORT}
+    ssh -i ${HOME}/.ssh/ssh-tunnel-key -N -o "ServerAliveInterval 10" -o "ServerAliveCountMax 3" -L ${SSHTUNNEL_TUNNEL_CONFIG} ${SSHTUNNEL_REMOTE_USER}@${SSHTUNNEL_REMOTE_HOST} -p ${SSHTUNNEL_REMOTE_PORT}
     log "ssh-connection-end"
     sleep 5;
   done &
@@ -35,8 +37,6 @@ function spawn_tunnel {
 log "starting"
 
 if is_configured; then
-  [ -v SSHTUNNEL_REMOTE_PORT ] || SSHTUNNEL_REMOTE_PORT=22
-
   deploy_key
   spawn_tunnel
 
