@@ -1,18 +1,18 @@
 # Heroku buildpack: ssh-tunnel
 
-This heroku buildpack allows an application to establish ssh tunnel to a remote host.
-It's meant to use this buildpack with other buildpacks.
+This heroku buildpack makes it possible for an application to establish ssh tunnel to reach a remote host.
+This buildpack must be used with a language-specific buildpack as a supplement.
 
 
 ## Usage
 
-1. Add this buildpack before your language specific buildpacks:
+1. Add this buildpack before your language-specific buildpacks:
 
 ```console
 $ heroku buildpacks:set https://github.com/szeist/heroku-buildpack-ssh-tunnel
 ```
 
-2. Add your language specific buidlpack (nodejs in this case)
+2. Add your language-specific buildpack (nodejs in this case):
 
 ```console
 $ heroku buildpacks:set heroku/nodejs
@@ -29,7 +29,7 @@ $ heroku buildpacks:set heroku/nodejs
 | maximum number of keepalives | 3 |
 | reconnect after | 5 sec |
 
-The buildpack can open 1 ssh tunnel configured with environment variables:
+The buildpack creates an ssh tunnel on the basis of the environment variables configured for Heroku:
 
 - ``SSHTUNNEL_PRIVATE_KEY``: Private key for connecting to the tunnel host
 - ``SSHTUNNEL_TUNNEL_CONFIG``: Tunnel configuration (openssh -L syntax) ``[LOCAL PORT]:[REMOTE_HOST]:[REMOTE_PORT]``
@@ -39,15 +39,15 @@ The buildpack can open 1 ssh tunnel configured with environment variables:
 
 ## Logging
 
-The buildpack logs to the stdout with 'ssh-tunnel' prefix.
+The buildpack logs to the standard output with the 'ssh-tunnel' prefix.
 
 ### Logged events:
 
 | Event | Description |
 | ----- | ----------- |
 | starting | logged on dyno start | 
-| spawned | logged after "tunnel-daemon" spawned | 
-| missing-configuration | logged on any missing configuration (daemon not spawned) | 
+| spawned | logged after "tunnel-daemon" starts | 
+| missing-configuration | logged on any missing configuration (tunnel-daemon is not started as variables are not defined properly) | 
 | ssh-connection-init | logged before initiating ssh connection | 
-| ssh-connection-end | logged after ssh connection end or connection error | 
+| ssh-connection-end | logged after the ssh connection ends or there is a connection error | 
 
