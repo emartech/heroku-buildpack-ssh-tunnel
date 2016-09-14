@@ -9,7 +9,7 @@ This buildpack must be used with a language-specific buildpack as a supplement.
 1. Add this buildpack before your language-specific buildpacks:
 
 ```console
-$ heroku buildpacks:set https://github.com/szeist/heroku-buildpack-ssh-tunnel
+$ heroku buildpacks:set https://github.com/emartech/heroku-buildpack-ssh-tunnel
 ```
 
 2. Add your language-specific buildpack (nodejs in this case):
