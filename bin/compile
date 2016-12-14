@@ -1,10 +1,18 @@
 #!/usr/bin/env bash
+# bin/compile <build-dir> <cache-dir> <env-dir>
 
-echo "-----> Adding ssh-tunnel script"
+# Configure environment
+set -e            # fail fast
+set -o pipefail   # don't ignore exit codes when piping output
+# set -x            # enable debugging
 
-ROOT_DIR=$(dirname $0)/../
+# Directories
 BUILD_DIR=$1
+BUILDPACK_DIR="$(dirname $(dirname $0))"
 
-[ ! -d $BUILD_DIR/.profile.d ] && mkdir $BUILD_DIR/.profile.d
+echo "-----> Moving the start-ssh-tunnel script into app/bin"
+mkdir -p $BUILD_DIR/bin
+cp "$BUILDPACK_DIR/bin/start-ssh-tunnel" $BUILD_DIR/bin/
+chmod +x $BUILD_DIR/bin/start-ssh-tunnel
 
-cp -a $ROOT_DIR/ssh-tunnel.sh $BUILD_DIR/.profile.d/
+echo "-----> ssh-tunnel done"

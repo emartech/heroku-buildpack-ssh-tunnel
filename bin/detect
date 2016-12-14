@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# bin/detect <build-dir>
 
 echo "ssh-tunnel"
 exit 0

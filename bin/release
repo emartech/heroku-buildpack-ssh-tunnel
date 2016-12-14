@@ -1,4 +1,2 @@
 #!/usr/bin/env bash
-
-cat <<EOF
-EOF
+# bin/release <build-dir>
