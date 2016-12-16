@@ -79,7 +79,7 @@ Host ssh-tunnel
   ServerAliveCountMax 3
 EOL
 
-  ssh-keyscan ssh-tunnel > ${HOME}/.ssh/known_hosts
+  ssh-keyscan -p ${SSHTUNNEL_REMOTE_PORT} ${SSHTUNNEL_REMOTE_HOST} > ${HOME}/.ssh/known_hosts
 }
 
 aux-start() {
