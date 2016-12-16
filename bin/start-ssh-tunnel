@@ -71,7 +71,7 @@ config-gen() {
   cat >${HOME}/.ssh/config <<EOL
 Host ssh-tunnel
   HostName ${SSHTUNNEL_REMOTE_HOST}
-  Port ${SSHTUNNEL_REMOTE_PORT:22}
+  Port ${SSHTUNNEL_REMOTE_PORT:-22}
   User ${SSHTUNNEL_REMOTE_USER}
   IdentityFile ${HOME}/.ssh/ssh-tunnel-key
   LocalForward ${SSHTUNNEL_TUNNEL_CONFIG}
