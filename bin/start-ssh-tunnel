@@ -24,6 +24,7 @@ run-ssh-tunnel() {
   aux-start ssh-tunnel SIGINT ssh -N ssh-tunnel
   app-start SIGTERM "$@"
   pid=$!
+  pgid=$(cut -d' ' -f5 /proc/$pid/stat)
 
   # Don't exit top script until all subprocesses are done.
   trap '' SIGTERM
@@ -45,11 +46,11 @@ run-ssh-tunnel() {
   # SIGTERM the application's process group (hence the negative PID), just in
   # case something else crashed. If the dyno is shutting down, then SIGTERM
   # has already been sent.
-  at "kill-app pid=$pid"
-  kill -SIGTERM -$pid
+  at "kill-app pid=$pid pgid=$pgid"
+  kill -SIGTERM -$pgid
 
   # Wait for the app to finish.
-  at "wait-app pid=$pid"
+  at "wait-app pid=$pid pgid=$pgid"
   wait $pid
 
   # Kill the auxiliary processes.
