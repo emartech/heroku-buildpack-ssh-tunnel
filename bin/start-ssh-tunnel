@@ -21,7 +21,7 @@ run-ssh-tunnel() {
   mkfifo "$sentinel"
 
   # Start processes.
-  aux-start ssh-tunnel SIGINT ssh -N ssh-tunnel
+  aux-start ssh-tunnel SIGINT ssh ${SSHTUNNEL_EXTRA_PARAMS} -N ssh-tunnel
   app-start SIGTERM "$@"
   pid=$!
   pgid=$(cut -d' ' -f5 /proc/$pid/stat)
