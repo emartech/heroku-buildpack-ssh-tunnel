@@ -32,7 +32,7 @@ $ heroku buildpacks:set heroku/nodejs
 The buildpack creates an ssh tunnel on the basis of the environment variables configured for Heroku:
 
 - ``SSHTUNNEL_PRIVATE_KEY``: Private key for connecting to the tunnel host
-- ``SSHTUNNEL_TUNNEL_CONFIG``: Tunnel configuration (openssh -L syntax without the ``LOCAL_HOST``) ``[LOCAL PORT]:[REMOTE_HOST]:[REMOTE_PORT]``
+- ``SSHTUNNEL_TUNNEL_CONFIG``: Tunnel configuration (openssh -L syntax without the ``LOCAL_HOST``) ``[LOCAL PORT] [REMOTE_HOST]:[REMOTE_PORT]``
 - ``SSHTUNNEL_REMOTE_USER``: Username for connecting to the tunnel server
 - ``SSHTUNNEL_REMOTE_HOST``: The tunnel server hostname
 - ``SSHTUNNEL_REMOTE_PORT``: (optional) Port for connecting the tunnel server. Default is 22.
